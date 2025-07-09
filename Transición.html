@@ -19,14 +19,20 @@
     }
 
     #capitulo {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       font-size: 1.8em;
-      text-align: center;
       font-weight: bold;
       text-transform: uppercase;
+      text-align: center;
+      color: #000000;
       opacity: 0;
       animation: fadeInOut 3.5s ease-in-out forwards;
-      margin-bottom: 1em;
-      color: #000000;
+      margin: 0;
+      padding: 0;
+      z-index: 10;
     }
 
     @keyframes fadeInOut {
