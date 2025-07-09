@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Capítulo 0 - Preludio</title>
+  <style>
+    body {
+      background-color: #ffffff; /* Fondo blanco */
+      color: #000000;            /* Texto negro */
+      font-family: 'Georgia', serif;
+      padding: 2em;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    #capitulo {
+      font-size: 1.8em;
+      text-align: center;
+      font-weight: bold;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeInOut 3.5s ease-in-out forwards;
+      margin-bottom: 1em;
+      color: #000000;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(20px); }
+      20% { opacity: 1; transform: translateY(0); }
+      80% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-20px); }
+    }
+
+    .parrafo {
+      white-space: pre-wrap;
+      border-left: 3px solid #000000;
+      padding-left: 1em;
+      margin: 2em 0;
+      opacity: 1; /* Mostrar directamente */
+      color: #000000;
+      font-size: 1.1em;
+    }
+
+    #continuarBtn {
+      display: none;
+      padding: 0.5em 1.2em;
+      font-size: 1em;
+      cursor: pointer;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      margin-top: 1em;
+    }
+
+    #continuarBtn:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="capitulo">CAPÍTULO CERO - PRELUDIO</div>
+
+  <div id="contenedor-texto"></div>
+  <button id="continuarBtn" onclick="siguienteFragmento()">Continuar</button>
+
+  <script>
+    const fragmentos = [
+      `¿Hay alguien ahí?\nAuren despertó. No había absolutamente nada en aquel lugar, aparte de el.`,
+      `“¿Cuánto tiempo ha pasado?”, pensó.\nLlevaba sobre su cabeza una bolsa de papel.`,
+      `¿Estamos conectados?`
+    ];
+
+    let indexFragmento = 0;
+    let velocidad = 35;
+    const contenedor = document.getElementById("contenedor-texto");
+    const continuarBtn = document.getElementById("continuarBtn");
+
+    // Espera a que termine la animación del título y comienza a escribir
+    setTimeout(() => {
+      escribirTexto(fragmentos[0], () => {
+        continuarBtn.style.display = "inline-block";
+      });
+    }, 4000); // 4 segundos para la animación fadeInOut del título
+
+    function escribirTexto(texto, callback) {
+      const nuevoParrafo = document.createElement("div");
+      nuevoParrafo.className = "parrafo";
+      nuevoParrafo.textContent = ""; // empezar vacío
+      contenedor.appendChild(nuevoParrafo);
+      let i = 0;
+
+      function escribir() {
+        if (i < texto.length) {
+          nuevoParrafo.textContent += texto.charAt(i);
+          i++;
+          setTimeout(escribir, velocidad);
+        } else {
+          if (callback) callback();
+        }
+      }
+
+      escribir();
+    }
+
+    function siguienteFragmento() {
+      continuarBtn.style.display = "none";
+      indexFragmento++;
+      if (indexFragmento < fragmentos.length) {
+        escribirTexto(fragmentos[indexFragmento], () => {
+          continuarBtn.style.display = "inline-block";
+        });
+      } else {
+        const fin = document.createElement("div");
+        fin.className = "parrafo";
+        fin.textContent = "\n(Está funcionando...)";
+        contenedor.appendChild(fin);
+        continuarBtn.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>
