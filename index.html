@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LA BOLSA DE PAPEL</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #f5f5f5;
+      font-family: 'Georgia', serif;
+      padding: 2em;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.6;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 0.5em;
+      color: #ffcc00;
+    }
+    .fragment {
+      margin: 2em 0;
+      display: none;
+    }
+    button {
+      padding: 0.5em 1em;
+      font-size: 1em;
+      cursor: pointer;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 8px;
+    }
+    button:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>La Bolsa de Papel</h1>
+  <p>"¿Hay alguien ahí?..."</p>
+
+  <div id="fragment1" class="fragment" style="display: block;">
+    <p>Auren despertó. No había absolutamente nada en aquel lugar, aparte de el...</p>
+    <button onclick="showFragment('fragment2')">Continuar</button>
+  </div>
+
+  <div id="fragment2" class="fragment">
+    <p>“¿Cuánto tiempo ha pasado?”, pensó. Llevaba sobre su cabeza una bolsa de papel.</p>
+    <button onclick="showFragment('fragment3')">Seguir leyendo</button>
+  </div>
+
+  <div id="fragment3" class="fragment">
+    <p>¿Estamos conectados?</p>
+    <button onclick="alert('Fin del prólogo (por ahora)')">Fin</button>
+  </div>
+
+  <script>
+    function showFragment(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+  </script>
+</body>
+</html>
