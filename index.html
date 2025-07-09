@@ -5,106 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>La Bolsa de Papel</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #121212;
-      color: #f5f5f5;
+      background-color: #ffffff;
       font-family: 'Georgia', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
       padding: 2em;
-      max-width: 700px;
-      margin: auto;
-      line-height: 1.6;
+    }
+
+    h1, .autor, img, button {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease-out forwards;
     }
 
     h1 {
-      font-size: 2em;
-      color: #ffcc00;
+      font-size: 2.5em;
+      letter-spacing: 2px;
+      margin-bottom: 0.2em;
+      color: #111;
+      text-transform: uppercase;
+      animation-delay: 0.2s;
     }
 
-    .parrafo {
-      white-space: pre-wrap;
-      border-left: 3px solid #ffcc00;
-      padding-left: 1em;
-      margin: 2em 0;
-    }
-
-    #continuarBtn {
-      display: none;
-      padding: 0.5em 1.2em;
+    .autor {
       font-size: 1em;
-      cursor: pointer;
-      background-color: #333;
+      color: #555;
+      margin-bottom: 1.5em;
+      animation-delay: 0.4s;
+      font-style: normal;
+    }
+
+    img {
+      max-width: 300px;
+      height: auto;
+      margin-bottom: 2em;
+      animation-delay: 0.7s;
+    }
+
+    button {
+      padding: 0.7em 1.5em;
+      font-size: 1em;
+      background-color: #111;
       color: white;
       border: none;
       border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      animation-delay: 1.2s;
     }
 
-    #continuarBtn:hover {
-      background-color: #555;
+    button:hover {
+      background-color: #333;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>La Bolsa de Papel</h1>
-  <div id="contenedor-texto"></div>
-  <button id="continuarBtn" onclick="siguienteFragmento()">Continuar</button>
+  <h1>LA BOLSA DE PAPEL</h1>
+  <div class="autor">LINCHEXX</div>
 
-  <script>
-    const fragmentos = [
-      `¿Hay alguien ahí?...\nAuren despertó. No había absolutamente nada en aquel lugar, aparte de el.`,
-      `“¿Cuánto tiempo ha pasado?”, pensó.\nLlevaba sobre su cabeza una bolsa de papel.`,
-      `¿Estamos conectados?`
-    ];
+  <!-- Reemplaza 'bolsa.png' con el nombre de tu imagen -->
+  <img src="bolsa.png" alt="Imagen de la bolsa de papel" />
 
-    let indexFragmento = 0;
-    let indexLetra = 0;
-    let velocidad = 35; // milisegundos por letra
-    let escribiendo = false;
-    let contenedor = document.getElementById("contenedor-texto");
-    let continuarBtn = document.getElementById("continuarBtn");
-
-    function escribirTexto(texto) {
-      escribiendo = true;
-      continuarBtn.style.display = "none";
-
-      const nuevoParrafo = document.createElement("div");
-      nuevoParrafo.className = "parrafo";
-      contenedor.appendChild(nuevoParrafo);
-
-      let letra = 0;
-
-      function escribir() {
-        if (letra < texto.length) {
-          nuevoParrafo.textContent += texto.charAt(letra);
-          letra++;
-          setTimeout(escribir, velocidad);
-        } else {
-          escribiendo = false;
-          nuevoParrafo.style.opacity = 1;
-          continuarBtn.style.display = "inline-block";
-        }
-      }
-
-      escribir();
-    }
-
-    function siguienteFragmento() {
-      indexFragmento++;
-      if (indexFragmento < fragmentos.length) {
-        escribirTexto(fragmentos[indexFragmento]);
-      } else {
-        continuarBtn.style.display = "none";
-        const fin = document.createElement("div");
-        fin.className = "parrafo";
-        fin.textContent = "\nFin del prólogo (por ahora)";
-        contenedor.appendChild(fin);
-        setTimeout(() => fin.style.opacity = 1, 200);
-      }
-    }
-
-    // Inicia escribiendo el primer fragmento
-    escribirTexto(fragmentos[0]);
-  </script>
+  <button onclick="window.location.href='Transición.html'">COMENZAR</button>
 
 </body>
 </html>
