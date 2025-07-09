@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LA BOLSA DE PAPEL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Bolsa de Papel</title>
   <style>
     body {
       background-color: #121212;
@@ -14,17 +14,22 @@
       margin: auto;
       line-height: 1.6;
     }
+
     h1 {
       font-size: 2em;
-      margin-bottom: 0.5em;
       color: #ffcc00;
     }
-    .fragment {
+
+    .parrafo {
+      white-space: pre-wrap;
+      border-left: 3px solid #ffcc00;
+      padding-left: 1em;
       margin: 2em 0;
-      display: none;
     }
-    button {
-      padding: 0.5em 1em;
+
+    #continuarBtn {
+      display: none;
+      padding: 0.5em 1.2em;
       font-size: 1em;
       cursor: pointer;
       background-color: #333;
@@ -32,7 +37,8 @@
       border: none;
       border-radius: 8px;
     }
-    button:hover {
+
+    #continuarBtn:hover {
       background-color: #555;
     }
   </style>
@@ -40,27 +46,65 @@
 <body>
 
   <h1>La Bolsa de Papel</h1>
-  <p>"¿Hay alguien ahí?..."</p>
-
-  <div id="fragment1" class="fragment" style="display: block;">
-    <p>Auren despertó. No había absolutamente nada en aquel lugar, aparte de el...</p>
-    <button onclick="showFragment('fragment2')">Continuar</button>
-  </div>
-
-  <div id="fragment2" class="fragment">
-    <p>“¿Cuánto tiempo ha pasado?”, pensó. Llevaba sobre su cabeza una bolsa de papel.</p>
-    <button onclick="showFragment('fragment3')">Seguir leyendo</button>
-  </div>
-
-  <div id="fragment3" class="fragment">
-    <p>¿Estamos conectados?</p>
-    <button onclick="alert('Fin del prólogo (por ahora)')">Fin</button>
-  </div>
+  <div id="contenedor-texto"></div>
+  <button id="continuarBtn" onclick="siguienteFragmento()">Continuar</button>
 
   <script>
-    function showFragment(id) {
-      document.getElementById(id).style.display = 'block';
+    const fragmentos = [
+      `¿Hay alguien ahí?...\nAuren despertó. No había absolutamente nada en aquel lugar, aparte de el.`,
+      `“¿Cuánto tiempo ha pasado?”, pensó.\nLlevaba sobre su cabeza una bolsa de papel.`,
+      `¿Estamos conectados?`
+    ];
+
+    let indexFragmento = 0;
+    let indexLetra = 0;
+    let velocidad = 35; // milisegundos por letra
+    let escribiendo = false;
+    let contenedor = document.getElementById("contenedor-texto");
+    let continuarBtn = document.getElementById("continuarBtn");
+
+    function escribirTexto(texto) {
+      escribiendo = true;
+      continuarBtn.style.display = "none";
+
+      const nuevoParrafo = document.createElement("div");
+      nuevoParrafo.className = "parrafo";
+      contenedor.appendChild(nuevoParrafo);
+
+      let letra = 0;
+
+      function escribir() {
+        if (letra < texto.length) {
+          nuevoParrafo.textContent += texto.charAt(letra);
+          letra++;
+          setTimeout(escribir, velocidad);
+        } else {
+          escribiendo = false;
+          nuevoParrafo.style.opacity = 1;
+          continuarBtn.style.display = "inline-block";
+        }
+      }
+
+      escribir();
     }
+
+    function siguienteFragmento() {
+      indexFragmento++;
+      if (indexFragmento < fragmentos.length) {
+        escribirTexto(fragmentos[indexFragmento]);
+      } else {
+        continuarBtn.style.display = "none";
+        const fin = document.createElement("div");
+        fin.className = "parrafo";
+        fin.textContent = "\nFin del prólogo (por ahora)";
+        contenedor.appendChild(fin);
+        setTimeout(() => fin.style.opacity = 1, 200);
+      }
+    }
+
+    // Inicia escribiendo el primer fragmento
+    escribirTexto(fragmentos[0]);
   </script>
+
 </body>
 </html>
